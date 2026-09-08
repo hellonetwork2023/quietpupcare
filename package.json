@@ -28,12 +28,10 @@
     "typescript": "^5"
   },
   "browserslist": [
-    "Chrome >= 87",
-    "Firefox >= 78",
-    "Safari >= 14",
-    "Edge >= 88",
-    "Opera >= 80",
-    "not dead",
-    "not IE 11"
+    "Chrome >= 109",
+    "Firefox >= 115",
+    "Safari >= 16",
+    "Edge >= 114",
+    "not dead"
   ]
 }
