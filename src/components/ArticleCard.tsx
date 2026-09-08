@@ -122,13 +122,13 @@ export const ArticleCard: React.FC<ArticleCardProps> = ({
           </div>
         </div>
 
-        <button
-          onClick={() => onSelectArticle(article)}
+        <Link
+          href={`/article/${article.slug}`}
           className="pt-3 font-semibold text-emerald-800 hover:text-emerald-950 inline-flex items-center gap-1 transition-colors"
         >
           Read Guide
           <ArrowUpRight className="w-4 h-4" />
-        </button>
+        </Link>
       </div>
     </article>
   );

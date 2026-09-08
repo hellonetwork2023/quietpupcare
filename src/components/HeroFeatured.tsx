@@ -1,6 +1,7 @@
 import React from 'react';
 import Image from 'next/image';
 import { Article } from '../types';
+import Link from "next/link";
 import { Clock, ShieldCheck, ArrowRight, Bookmark, CheckCircle2 } from 'lucide-react';
 
 interface HeroFeaturedProps {
@@ -40,12 +41,12 @@ export const HeroFeatured: React.FC<HeroFeaturedProps> = ({
               </div>
 
               {/* Title */}
-              <h1 
-                onClick={() => onSelectArticle(article)}
-                className="font-serif-heading text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-white hover:text-emerald-300 transition-colors cursor-pointer leading-[1.2] mb-3"
+              <Link 
+                href={`/article/${article.slug}`}
+                className="block font-serif-heading text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-white hover:text-emerald-300 transition-colors cursor-pointer leading-[1.2] mb-3"
               >
                 {article.title}
-              </h1>
+              </Link>
 
               {/* Subtitle / Excerpt */}
               <p className="text-stone-300 text-sm sm:text-base leading-relaxed mb-6 font-normal">
@@ -100,13 +101,13 @@ export const HeroFeatured: React.FC<HeroFeaturedProps> = ({
                 >
                   <Bookmark className={`w-5 h-5 ${isBookmarked ? 'fill-emerald-400' : ''}`} />
                 </button>
-                <button
-                  onClick={() => onSelectArticle(article)}
+                <Link
+                  href={`/article/${article.slug}`}
                   className="inline-flex items-center gap-2 bg-emerald-700 hover:bg-emerald-600 text-white px-5 py-2.5 rounded-xl font-semibold text-sm transition-all shadow-md hover:shadow-emerald-900/30"
                 >
                   Read Clinical Guide
                   <ArrowRight className="w-4 h-4" />
-                </button>
+                </Link>
               </div>
             </div>
           </div>
