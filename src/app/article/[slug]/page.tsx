@@ -54,23 +54,51 @@ function mapWpPostToArticle(wpPost: any): Article {
   };
 }
 
+const SITE_URL = 'https://quietpupcare.com';
+const WP_DOMAIN = 'amaz.quietpupcare.com';
+
+// Fix URLs from WP subdomain to main domain
+function fixDomain(url: string | undefined): string {
+  if (!url) return '';
+  return url.replace(WP_DOMAIN, SITE_URL.replace('https://', ''));
+}
+
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
   const wpPost = await getPostBySlug(slug);
   if (!wpPost) return { title: 'Not Found' };
   
   const seo = wpPost.rankMathSEO;
+  const title = seo?.title || wpPost.title;
+  const description = seo?.description || wpPost.excerpt?.replace(/<[^>]+>/g, '').trim();
+  const canonicalUrl = `${SITE_URL}/article/${slug}`;
+  const imageUrl = wpPost.featuredImage?.node?.sourceUrl || '';
   
   return {
-    title: seo?.title || wpPost.title,
-    description: seo?.description || wpPost.excerpt?.replace(/<[^>]+>/g, '').trim(),
+    title,
+    description,
     alternates: {
-      canonical: seo?.canonicalUrl || `https://quietpupcare.com/article/${slug}`,
+      canonical: canonicalUrl,
     },
     robots: {
-      index: seo?.robots?.includes('index'),
-      follow: seo?.robots?.includes('follow'),
-    }
+      index: !seo?.robots?.includes('noindex'),
+      follow: !seo?.robots?.includes('nofollow'),
+    },
+    openGraph: {
+      type: 'article',
+      title,
+      description,
+      url: canonicalUrl,
+      siteName: 'Quiet Pup Care',
+      images: imageUrl ? [{ url: imageUrl, alt: wpPost.featuredImage?.node?.altText || title }] : [],
+      publishedTime: wpPost.date,
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+      images: imageUrl ? [imageUrl] : [],
+    },
   };
 }
 
