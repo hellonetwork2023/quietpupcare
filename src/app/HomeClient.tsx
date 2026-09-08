@@ -321,14 +321,18 @@ export default function HomeClient({ articles = ARTICLES }: { articles?: Article
               <>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
                   {filteredArticles
-                    .slice((currentPage - 1) * 12, currentPage * 12)
-                    .map((article) => (
+                    .slice(
+                      currentPage === 1 ? 1 : (currentPage - 1) * 12, 
+                      currentPage * 12
+                    )
+                    .map((article, index) => (
                       <ArticleCard
                         key={article.id}
                         article={article}
                         onSelectArticle={handleSelectArticle}
                         isBookmarked={bookmarkedIds.includes(article.id)}
                         onToggleBookmark={toggleBookmark}
+                        priority={index < 2}
                       />
                     ))}
                 </div>

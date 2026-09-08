@@ -9,6 +9,7 @@ interface ArticleCardProps {
   onSelectArticle: (article: Article) => void;
   isBookmarked: boolean;
   onToggleBookmark: (articleId: string) => void;
+  priority?: boolean;
 }
 
 const CATEGORY_LABELS: Record<string, { label: string; color: string }> = {
@@ -24,7 +25,8 @@ export const ArticleCard: React.FC<ArticleCardProps> = ({
   article,
   onSelectArticle,
   isBookmarked,
-  onToggleBookmark
+  onToggleBookmark,
+  priority = false
 }) => {
   const catInfo = CATEGORY_LABELS[article.category] || {
     label: 'Dog Anxiety',
@@ -43,6 +45,7 @@ export const ArticleCard: React.FC<ArticleCardProps> = ({
             src={article.coverImage}
             alt={article.imageAlt}
             fill
+            priority={priority}
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             className="object-cover group-hover:scale-103 transition-transform duration-500 ease-out"
           />

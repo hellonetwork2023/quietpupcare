@@ -22,6 +22,8 @@ const nextConfig: NextConfig = {
         pathname: '/**',
       },
     ],
+    formats: ['image/avif', 'image/webp'],
+    minimumCacheTTL: 31536000,
   },
   // Replace Next.js built-in polyfill-module with an empty file.
   // Modern browsers (Chrome 109+, Safari 16+, etc.) already support
