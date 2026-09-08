@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 import Link from 'next/link';
 import { 
   ShieldCheck, 
@@ -64,12 +65,14 @@ export const ArticleNavbar: React.FC = () => {
           {/* Brand Logo */}
           <div 
             onClick={goHome} 
-            className="flex items-center cursor-pointer group"
+            className="flex items-center cursor-pointer group relative w-32 h-12 shrink-0"
           >
-            <img 
+            <Image
               src="https://amaz.quietpupcare.com/wp-content/uploads/2026/09/logo.webp" 
               alt="Quiet Pup Care Logo" 
-              className="h-12 w-auto object-contain transition-opacity group-hover:opacity-90"
+              fill
+              className="object-contain transition-opacity group-hover:opacity-90"
+              sizes="(max-width: 768px) 200px, 300px"
             />
           </div>
 

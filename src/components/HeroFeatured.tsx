@@ -1,4 +1,5 @@
 import React from 'react';
+import Image from 'next/image';
 import { Article } from '../types';
 import { Clock, ShieldCheck, ArrowRight, Bookmark, CheckCircle2 } from 'lucide-react';
 
@@ -68,11 +69,15 @@ export const HeroFeatured: React.FC<HeroFeaturedProps> = ({
             {/* Author & Action Row */}
             <div className="pt-4 border-t border-stone-800 flex flex-wrap items-center justify-between gap-4">
               <div className="flex items-center gap-3">
-                <img
-                  src={article.author.avatar}
-                  alt={article.author.name}
-                  className="w-11 h-11 rounded-full object-cover ring-2 ring-emerald-500/30"
-                />
+                <div className="relative w-11 h-11 shrink-0">
+                  <Image
+                    src={article.author.avatar}
+                    alt={article.author.name}
+                    fill
+                    className="rounded-full object-cover ring-2 ring-emerald-500/30"
+                    sizes="44px"
+                  />
+                </div>
                 <div>
                   <div className="text-sm font-semibold text-white">
                     {article.author.name}
@@ -108,10 +113,12 @@ export const HeroFeatured: React.FC<HeroFeaturedProps> = ({
 
           {/* Right / Image Side */}
           <div className="lg:col-span-5 relative min-h-[320px] lg:min-h-full">
-            <img
+            <Image
               src={article.coverImage}
               alt={article.imageAlt}
-              className="absolute inset-0 w-full h-full object-cover"
+              fill
+              priority
+              className="object-cover"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-stone-900 via-transparent lg:bg-gradient-to-r lg:from-stone-900 lg:via-transparent opacity-90 lg:opacity-70" />
             <div className="absolute bottom-4 left-4 right-4 bg-stone-900/80 backdrop-blur-md p-3.5 rounded-xl border border-stone-700/80 text-xs text-stone-300">

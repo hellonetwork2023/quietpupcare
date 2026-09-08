@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Image from 'next/image';
 import { 
   ShieldCheck, 
   Bookmark, 
@@ -77,12 +78,14 @@ export const Navbar: React.FC<NavbarProps> = ({
           {/* Brand Logo */}
           <div 
             onClick={() => { setActiveTab('articles'); onSelectCategory('all'); }} 
-            className="flex items-center cursor-pointer group"
+            className="flex items-center cursor-pointer group relative w-32 h-12 shrink-0"
           >
-            <img 
+            <Image
               src="https://amaz.quietpupcare.com/wp-content/uploads/2026/09/logo.webp" 
               alt="Quiet Pup Care Logo" 
-              className="h-12 w-auto object-contain transition-opacity group-hover:opacity-90"
+              fill
+              className="object-contain transition-opacity group-hover:opacity-90"
+              sizes="(max-width: 768px) 200px, 300px"
             />
           </div>
 

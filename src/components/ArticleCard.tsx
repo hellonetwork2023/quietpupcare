@@ -1,4 +1,5 @@
 import React from 'react';
+import Image from 'next/image';
 import { Article } from '../types';
 import { Clock, ShieldCheck, Bookmark, ArrowUpRight } from 'lucide-react';
 
@@ -37,11 +38,12 @@ export const ArticleCard: React.FC<ArticleCardProps> = ({
           onClick={() => onSelectArticle(article)}
           className="relative h-52 w-full overflow-hidden cursor-pointer bg-stone-100"
         >
-          <img
+          <Image
             src={article.coverImage}
             alt={article.imageAlt}
-            className="w-full h-full object-cover group-hover:scale-103 transition-transform duration-500 ease-out"
-            loading="lazy"
+            fill
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            className="object-cover group-hover:scale-103 transition-transform duration-500 ease-out"
           />
           <div className="absolute top-3 left-3">
             <span className={`text-[11px] font-semibold tracking-wide px-2.5 py-1 rounded-full border shadow-xs ${catInfo.color}`}>
@@ -99,11 +101,15 @@ export const ArticleCard: React.FC<ArticleCardProps> = ({
       {/* Card Footer: Author & Read More */}
       <div className="px-5 pb-5 sm:px-6 sm:pb-6 pt-0 border-t border-stone-100 flex items-center justify-between text-xs">
         <div className="flex items-center gap-2.5 pt-3">
-          <img
-            src={article.author.avatar}
-            alt={article.author.name}
-            className="w-7 h-7 rounded-full object-cover border border-stone-200"
-          />
+          <div className="relative w-7 h-7 shrink-0">
+            <Image
+              src={article.author.avatar}
+              alt={article.author.name}
+              fill
+              className="rounded-full object-cover border border-stone-200"
+              sizes="28px"
+            />
+          </div>
           <div>
             <div className="font-semibold text-stone-800 leading-tight">
               {article.author.name.split(',')[0]}

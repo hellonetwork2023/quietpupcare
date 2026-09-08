@@ -136,3 +136,17 @@ export async function getPostBySlug(slug: string) {
   const data = await fetchGraphQL(query, variables);
   return data?.post;
 }
+
+export async function getCustomScripts() {
+  const query = `
+    query GetCustomScripts {
+      customScripts {
+        headScripts
+        bodyScripts
+        footerScripts
+      }
+    }
+  `;
+  const data = await fetchGraphQL(query);
+  return data?.customScripts;
+}
