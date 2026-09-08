@@ -11,6 +11,20 @@ export const metadata: Metadata = {
   }
 };
 
+import { Plus_Jakarta_Sans, Source_Serif_4 } from "next/font/google";
+
+const plusJakartaSans = Plus_Jakarta_Sans({
+  subsets: ["latin"],
+  variable: "--font-plus-jakarta-sans",
+  display: 'swap',
+});
+
+const sourceSerif4 = Source_Serif_4({
+  subsets: ["latin"],
+  variable: "--font-source-serif-4",
+  display: 'swap',
+});
+
 export default async function RootLayout({
   children,
 }: Readonly<{
@@ -21,12 +35,9 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Source+Serif+4:opsz,wght@8..60,400;8..60,700&display=swap" rel="stylesheet" />
         {customScripts?.headScripts && parse(customScripts.headScripts)}
       </head>
-      <body className="antialiased">
+      <body className={`antialiased ${plusJakartaSans.variable} ${sourceSerif4.variable}`}>
         {customScripts?.bodyScripts && parse(customScripts.bodyScripts)}
         {children}
         {customScripts?.footerScripts && parse(customScripts.footerScripts)}

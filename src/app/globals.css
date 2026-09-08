@@ -3,14 +3,14 @@
 
 @layer base {
   body {
-    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-family: var(--font-plus-jakarta-sans), system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     color: #1e293b;
     background-color: #fbfaf7;
     -webkit-font-smoothing: antialiased;
   }
 
   .font-serif-heading {
-    font-family: 'Source Serif 4', Georgia, Cambria, 'Times New Roman', serif;
+    font-family: var(--font-source-serif-4), Georgia, Cambria, 'Times New Roman', serif;
   }
 }
 
