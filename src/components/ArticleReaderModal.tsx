@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Image from 'next/image';
 import { Article } from '../types';
 import { 
   X, 
@@ -176,12 +177,16 @@ export const ArticleReaderModal: React.FC<ArticleReaderModalProps> = ({
             {/* Author & Vet Review Row */}
             <div className="p-4 bg-stone-100/80 rounded-2xl border border-stone-200/80 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
               <div className="flex items-center gap-3">
-                <img
+              <div className="relative w-12 h-12 shrink-0 bg-white rounded-full border-2 border-white shadow-xs">
+                <Image
                   src={article.author.avatar}
                   alt={article.author.name}
-                  className="w-12 h-12 rounded-full object-cover border-2 border-white shadow-xs"
+                  fill
+                  className="object-cover rounded-full"
+                  sizes="48px"
                 />
-                <div>
+              </div>
+              <div>
                   <div className="font-bold text-stone-900 text-sm">
                     Written by {article.author.name}
                   </div>
@@ -209,12 +214,17 @@ export const ArticleReaderModal: React.FC<ArticleReaderModalProps> = ({
           </header>
 
           {/* Cover Photo */}
-          <div className="mb-8 rounded-2xl overflow-hidden border border-stone-200">
-            <img
-              src={article.coverImage}
-              alt={article.imageAlt}
-              className="w-full h-80 sm:h-96 object-cover"
-            />
+          <div className="mb-8 rounded-2xl overflow-hidden border border-stone-200 flex flex-col">
+            <div className="relative w-full h-80 sm:h-96 shrink-0">
+              <Image
+                src={article.coverImage}
+                alt={article.imageAlt}
+                fill
+                priority
+                className="object-cover"
+                sizes="(max-width: 768px) 100vw, 800px"
+              />
+            </div>
             <div className="bg-stone-50 px-4 py-2 text-xs text-stone-500 border-t border-stone-200 text-center italic">
               {article.imageAlt}
             </div>
@@ -375,11 +385,15 @@ export const ArticleReaderModal: React.FC<ArticleReaderModalProps> = ({
 
           {/* Author Bio Box */}
           <div className="p-6 bg-stone-100 rounded-2xl border border-stone-200 mb-10 flex flex-col sm:flex-row items-center sm:items-start gap-4">
-            <img
-              src={article.author.avatar}
-              alt={article.author.name}
-              className="w-16 h-16 rounded-full object-cover ring-2 ring-stone-300"
-            />
+            <div className="relative w-16 h-16 shrink-0 rounded-full ring-2 ring-stone-300">
+              <Image
+                src={article.author.avatar}
+                alt={article.author.name}
+                fill
+                className="object-cover rounded-full"
+                sizes="64px"
+              />
+            </div>
             <div>
               <div className="font-bold text-stone-900 text-base mb-1">
                 About {article.author.name}
@@ -418,11 +432,15 @@ export const ArticleReaderModal: React.FC<ArticleReaderModalProps> = ({
                     }}
                     className="p-3 bg-white rounded-xl border border-stone-200 hover:border-emerald-700 cursor-pointer transition-colors group"
                   >
-                    <img
-                      src={rel.coverImage}
-                      alt={rel.title}
-                      className="w-full h-28 object-cover rounded-lg mb-2"
-                    />
+                    <div className="relative w-full h-28 shrink-0 mb-2">
+                      <Image
+                        src={rel.coverImage}
+                        alt={rel.title}
+                        fill
+                        className="object-cover rounded-lg"
+                        sizes="(max-width: 640px) 100vw, 33vw"
+                      />
+                    </div>
                     <div className="text-[10px] font-semibold text-emerald-800 uppercase tracking-wide mb-1">
                       {rel.category.replace('-', ' ')}
                     </div>

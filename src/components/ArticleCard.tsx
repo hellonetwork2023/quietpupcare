@@ -1,6 +1,7 @@
 import React from 'react';
 import Image from 'next/image';
 import { Article } from '../types';
+import Link from "next/link";
 import { Clock, ShieldCheck, Bookmark, ArrowUpRight } from 'lucide-react';
 
 interface ArticleCardProps {
@@ -34,9 +35,9 @@ export const ArticleCard: React.FC<ArticleCardProps> = ({
     <article className="group bg-white rounded-2xl border border-stone-200/90 shadow-xs hover:shadow-md hover:border-stone-300 transition-all flex flex-col justify-between overflow-hidden">
       <div>
         {/* Cover Image Container */}
-        <div 
-          onClick={() => onSelectArticle(article)}
-          className="relative h-52 w-full overflow-hidden cursor-pointer bg-stone-100"
+        <Link 
+          href={`/article/${article.slug}`}
+          className="relative h-52 w-full overflow-hidden block bg-stone-100"
         >
           <Image
             src={article.coverImage}
@@ -52,10 +53,11 @@ export const ArticleCard: React.FC<ArticleCardProps> = ({
           </div>
           <button
             onClick={(e) => {
+              e.preventDefault();
               e.stopPropagation();
               onToggleBookmark(article.id);
             }}
-            className={`absolute top-3 right-3 p-2 rounded-full backdrop-blur-md transition-all ${
+            className={`absolute top-3 right-3 p-2 rounded-full backdrop-blur-md transition-all z-10 ${
               isBookmarked
                 ? 'bg-emerald-900 text-white shadow-sm'
                 : 'bg-stone-900/60 text-white hover:bg-stone-900'
@@ -64,7 +66,7 @@ export const ArticleCard: React.FC<ArticleCardProps> = ({
           >
             <Bookmark className={`w-3.5 h-3.5 ${isBookmarked ? 'fill-white' : ''}`} />
           </button>
-        </div>
+        </Link>
 
         {/* Card Body */}
         <div className="p-5 sm:p-6">
@@ -84,12 +86,12 @@ export const ArticleCard: React.FC<ArticleCardProps> = ({
           </div>
 
           {/* Title */}
-          <h2
-            onClick={() => onSelectArticle(article)}
-            className="font-serif-heading text-lg sm:text-xl font-bold text-stone-900 group-hover:text-emerald-800 transition-colors cursor-pointer leading-snug mb-2"
+          <Link
+            href={`/article/${article.slug}`}
+            className="font-serif-heading text-lg sm:text-xl font-bold text-stone-900 group-hover:text-emerald-800 transition-colors cursor-pointer leading-snug mb-2 block"
           >
             {article.title}
-          </h2>
+          </Link>
 
           {/* Excerpt */}
           <p className="text-stone-600 text-xs sm:text-sm leading-relaxed line-clamp-3 mb-4">

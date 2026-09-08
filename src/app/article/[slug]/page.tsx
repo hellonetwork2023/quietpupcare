@@ -1,4 +1,5 @@
 import React from 'react';
+import Image from 'next/image';
 import { getPostBySlug, getAllPosts } from '@/lib/wp';
 import { notFound } from 'next/navigation';
 import { Article } from '@/types';
@@ -75,9 +76,13 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
 export default async function ArticlePage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const wpPost = await getPostBySlug(slug);
-  const allPosts = await getAllPosts();
   
+  // Fetch specific post and all posts in parallel for massive speedup
+  const [wpPost, allPosts] = await Promise.all([
+    getPostBySlug(slug),
+    getAllPosts()
+  ]);
+
   if (!wpPost) {
     notFound();
   }
@@ -117,11 +122,15 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
           </h1>
 
           <div className="p-5 bg-[#f6f6f6] rounded-2xl border border-stone-200 flex items-center gap-4">
-            <img
-              src={article.author.avatar}
-              alt={article.author.name}
-              className="w-12 h-12 rounded-full object-cover border-2 border-white shadow-sm shrink-0 bg-white"
-            />
+            <div className="relative w-12 h-12 shrink-0 bg-white rounded-full border-2 border-white shadow-sm">
+              <Image
+                src={article.author.avatar}
+                alt={article.author.name}
+                fill
+                className="object-cover rounded-full"
+                sizes="48px"
+              />
+            </div>
             <div>
               <div className="font-bold text-stone-900 text-[15px]">
                 Written by {article.author.name}
@@ -135,12 +144,18 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
         </header>
 
         {/* Cover Photo */}
-        <div className="mb-8 rounded-2xl overflow-hidden border border-stone-200">
-          <img
-            src={article.coverImage}
-            alt={article.imageAlt}
-            className="w-full h-80 sm:h-96 object-cover"
-          />
+        <div className="mb-8 rounded-2xl overflow-hidden border border-stone-200 flex flex-col">
+          <div className="relative w-full h-80 sm:h-96 shrink-0">
+            <Image
+              src={article.coverImage}
+              alt={article.imageAlt}
+              fill
+              priority
+              fetchPriority="high"
+              className="object-cover"
+              sizes="(max-width: 768px) 100vw, 800px"
+            />
+          </div>
           <div className="bg-stone-50 px-4 py-2 text-xs text-stone-500 border-t border-stone-200 text-center italic">
             {article.imageAlt}
           </div>
@@ -203,11 +218,15 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
 
         {/* Author Bio Box */}
         <div className="p-6 bg-stone-100 rounded-2xl border border-stone-200 mb-10 flex flex-col sm:flex-row items-center sm:items-start gap-4">
-          <img
-            src={article.author.avatar}
-            alt={article.author.name}
-            className="w-16 h-16 rounded-full object-cover ring-2 ring-stone-300"
-          />
+          <div className="relative w-16 h-16 shrink-0 rounded-full ring-2 ring-stone-300">
+            <Image
+              src={article.author.avatar}
+              alt={article.author.name}
+              fill
+              className="object-cover rounded-full"
+              sizes="64px"
+            />
+          </div>
           <div>
             <div className="font-bold text-stone-900 text-base mb-1">
               About {article.author.name}
