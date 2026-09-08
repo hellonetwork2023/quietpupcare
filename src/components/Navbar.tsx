@@ -84,8 +84,10 @@ export const Navbar: React.FC<NavbarProps> = ({
               src="https://amaz.quietpupcare.com/wp-content/uploads/2026/09/logo.webp" 
               alt="Quiet Pup Care Logo" 
               fill
+              priority
+              fetchPriority="high"
               className="object-contain transition-opacity group-hover:opacity-90"
-              sizes="(max-width: 768px) 200px, 300px"
+              sizes="130px"
             />
           </div>
 

@@ -71,6 +71,7 @@ export const ArticleNavbar: React.FC = () => {
               src="https://amaz.quietpupcare.com/wp-content/uploads/2026/09/logo.webp" 
               alt="Quiet Pup Care Logo" 
               fill
+              priority
               className="object-contain transition-opacity group-hover:opacity-90"
               sizes="(max-width: 768px) 200px, 300px"
             />

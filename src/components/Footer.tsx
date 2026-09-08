@@ -1,5 +1,6 @@
 "use client";
 import React from 'react';
+import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { Heart, ShieldCheck, Mail, ArrowUp } from 'lucide-react';
 import { CategoryId } from '../types';
@@ -51,12 +52,11 @@ export const Footer: React.FC<FooterProps> = ({
           <div className="lg:col-span-2 space-y-4">
             <div className="flex items-center cursor-pointer">
               <div className="bg-[#fbfaf7] p-2 rounded-xl inline-block">
-                <img 
+                <Image
                   src="https://amaz.quietpupcare.com/wp-content/uploads/2026/09/logo.webp" 
                   alt="Quiet Pup Care Logo" 
-                  width="150"
-                  height="40"
-                  loading="lazy"
+                  width={150}
+                  height={40}
                   className="h-10 w-auto object-contain"
                 />
               </div>
