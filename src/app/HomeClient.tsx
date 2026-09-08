@@ -5,24 +5,24 @@ import { Article, CategoryId } from '@/types';
 import { Navbar } from '@/components/Navbar';
 import { HeroFeatured } from '@/components/HeroFeatured';
 import { ArticleCard } from '@/components/ArticleCard';
-import { ArticleReaderModal } from '@/components/ArticleReaderModal';
-import { GearGuideSection } from '@/components/GearGuideSection';
-import { CanineStressQuiz } from '@/components/CanineStressQuiz';
-import { SoundscapePlayer } from '@/components/SoundscapePlayer';
-import { BookmarksDrawer } from '@/components/BookmarksDrawer';
-import { NewsletterBanner } from '@/components/NewsletterBanner';
-import { Footer } from '@/components/Footer';
+import { LazyLoad } from '@/components/LazyLoad';
+import dynamic from 'next/dynamic';
 import { useRouter } from 'next/navigation';
 import { 
-  Sparkles, 
   Volume2, 
   HelpCircle, 
   Search, 
-  BookOpen, 
   ShieldCheck, 
   SlidersHorizontal,
-  Heart
 } from 'lucide-react';
+
+// Lazy loaded components (below the fold or modals)
+const GearGuideSection = dynamic(() => import('@/components/GearGuideSection').then(mod => mod.GearGuideSection));
+const CanineStressQuiz = dynamic(() => import('@/components/CanineStressQuiz').then(mod => mod.CanineStressQuiz), { ssr: false });
+const SoundscapePlayer = dynamic(() => import('@/components/SoundscapePlayer').then(mod => mod.SoundscapePlayer), { ssr: false });
+const BookmarksDrawer = dynamic(() => import('@/components/BookmarksDrawer').then(mod => mod.BookmarksDrawer), { ssr: false });
+const NewsletterBanner = dynamic(() => import('@/components/NewsletterBanner').then(mod => mod.NewsletterBanner));
+const Footer = dynamic(() => import('@/components/Footer').then(mod => mod.Footer));
 
 export default function HomeClient({ articles = ARTICLES }: { articles?: Article[] }) {
   const router = useRouter();
@@ -365,7 +365,9 @@ export default function HomeClient({ articles = ARTICLES }: { articles?: Article
             )}
 
             {/* Newsletter Dispatch Component */}
-            <NewsletterBanner />
+            <LazyLoad minHeight="300px">
+              <NewsletterBanner />
+            </LazyLoad>
           </div>
         )}
 
@@ -373,7 +375,9 @@ export default function HomeClient({ articles = ARTICLES }: { articles?: Article
         {activeTab === 'gear' && (
           <div>
             <GearGuideSection />
-            <NewsletterBanner />
+            <LazyLoad minHeight="300px">
+              <NewsletterBanner />
+            </LazyLoad>
           </div>
         )}
 
@@ -411,14 +415,16 @@ export default function HomeClient({ articles = ARTICLES }: { articles?: Article
       />
 
       {/* Authoritative Footer */}
-      <Footer
-        onSelectCategory={(cat) => {
-          setActiveTab('articles');
-          setSelectedCategory(cat);
-        }}
-        onOpenQuiz={() => setQuizOpen(true)}
-        onOpenSoundModal={() => setSoundModalOpen(true)}
-      />
+      <LazyLoad minHeight="400px">
+        <Footer
+          onSelectCategory={(cat) => {
+            setActiveTab('articles');
+            setSelectedCategory(cat);
+          }}
+          onOpenQuiz={() => setQuizOpen(true)}
+          onOpenSoundModal={() => setSoundModalOpen(true)}
+        />
+      </LazyLoad>
 
     </div>
   );

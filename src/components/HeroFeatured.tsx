@@ -121,6 +121,7 @@ export const HeroFeatured: React.FC<HeroFeaturedProps> = ({
               priority
               fetchPriority="high"
               className="object-cover"
+              sizes="(max-width: 1024px) 100vw, 50vw"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-stone-900 via-transparent lg:bg-gradient-to-r lg:from-stone-900 lg:via-transparent opacity-90 lg:opacity-70" />
             <div className="absolute bottom-4 left-4 right-4 bg-stone-900/80 backdrop-blur-md p-3.5 rounded-xl border border-stone-700/80 text-xs text-stone-300">

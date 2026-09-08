@@ -320,7 +320,7 @@ export const ArticleReaderModal: React.FC<ArticleReaderModalProps> = ({
                   <div key={idx} className="bg-white rounded-2xl border border-stone-200 overflow-hidden shadow-xs flex flex-col justify-between">
                     <div>
                       <div className="h-44 overflow-hidden relative">
-                        <img src={gear.image} alt={gear.name} className="w-full h-full object-cover" />
+                        <Image src={gear.image} alt={gear.name} fill className="object-cover" sizes="(max-width: 768px) 100vw, 50vw" loading="lazy" />
                         <span className="absolute top-3 left-3 bg-stone-900/80 text-white text-[11px] font-bold px-2.5 py-1 rounded-full">
                           {gear.badge}
                         </span>

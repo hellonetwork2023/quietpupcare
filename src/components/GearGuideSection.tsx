@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Image from 'next/image';
 import { TESTED_GEAR } from '../data/gear';
 import { GearItem } from '../types';
 import { 
@@ -75,10 +76,13 @@ export const GearGuideSection: React.FC = () => {
             <div>
               {/* Product Image & Badge */}
               <div className="h-56 relative overflow-hidden bg-stone-100">
-                <img
+                <Image
                   src={item.image}
                   alt={item.name}
-                  className="w-full h-full object-cover group-hover:scale-104 transition-transform duration-500"
+                  fill
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  loading="lazy"
+                  className="object-cover group-hover:scale-104 transition-transform duration-500"
                 />
                 <div className="absolute top-3 left-3 bg-stone-900/90 text-white text-[11px] font-bold px-3 py-1 rounded-full backdrop-blur-xs flex items-center gap-1.5 shadow-sm">
                   <Award className="w-3.5 h-3.5 text-amber-400" />

@@ -54,6 +54,9 @@ export const Footer: React.FC<FooterProps> = ({
                 <img 
                   src="https://amaz.quietpupcare.com/wp-content/uploads/2026/09/logo.webp" 
                   alt="Quiet Pup Care Logo" 
+                  width="150"
+                  height="40"
+                  loading="lazy"
                   className="h-10 w-auto object-contain"
                 />
               </div>
