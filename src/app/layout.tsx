@@ -74,10 +74,8 @@ export default async function RootLayout({
 
   return (
     <html lang="en" className={`${plusJakarta.variable} ${sourceSerif.variable}`}>
-      <head>
-        {customScripts?.headScripts && parse(customScripts.headScripts)}
-      </head>
       <body className="antialiased">
+        {customScripts?.headScripts && parse(customScripts.headScripts)}
         {customScripts?.bodyScripts && parse(customScripts.bodyScripts)}
         {children}
         {customScripts?.footerScripts && parse(customScripts.footerScripts)}
