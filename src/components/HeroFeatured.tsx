@@ -118,6 +118,7 @@ export const HeroFeatured: React.FC<HeroFeaturedProps> = ({
               alt={article.imageAlt}
               fill
               priority
+              fetchPriority="high"
               className="object-cover"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-stone-900 via-transparent lg:bg-gradient-to-r lg:from-stone-900 lg:via-transparent opacity-90 lg:opacity-70" />
