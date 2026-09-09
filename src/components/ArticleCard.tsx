@@ -46,7 +46,6 @@ export const ArticleCard: React.FC<ArticleCardProps> = ({
             alt={article.imageAlt}
             fill
             priority={priority}
-            quality={60}
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             className="object-cover group-hover:scale-103 transition-transform duration-500 ease-out"
           />

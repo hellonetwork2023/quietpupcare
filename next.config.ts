@@ -22,7 +22,7 @@ const nextConfig: NextConfig = {
         pathname: '/**',
       },
     ],
-    formats: ['image/avif', 'image/webp'],
+    formats: ['image/webp'],
     minimumCacheTTL: 31536000,
   },
   // Replace Next.js built-in polyfill-module with an empty file.
