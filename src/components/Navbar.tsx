@@ -85,7 +85,6 @@ export const Navbar: React.FC<NavbarProps> = ({
               alt="Quiet Pup Care Logo" 
               fill
               priority
-              unoptimized
               fetchPriority="high"
               className="object-contain transition-opacity group-hover:opacity-90"
               sizes="130px"
