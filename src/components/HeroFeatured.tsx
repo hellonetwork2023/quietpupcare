@@ -119,6 +119,7 @@ export const HeroFeatured: React.FC<HeroFeaturedProps> = ({
               alt={article.imageAlt}
               fill
               priority
+              unoptimized
               fetchPriority="high"
               className="object-cover"
               sizes="(max-width: 1024px) 100vw, 50vw"
