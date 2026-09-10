@@ -1,6 +1,7 @@
 "use client";
 import React from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { Heart, ShieldCheck, Mail, ArrowUp } from 'lucide-react';
 import { CategoryId } from '../types';
@@ -193,28 +194,13 @@ export const Footer: React.FC<FooterProps> = ({
                 </button>
               </li>
               <li>
-                <button
-                  onClick={() => alert("About us page coming soon.")}
-                  className="hover:text-emerald-300 transition-colors text-left"
-                >
-                  About Our Mission
-                </button>
+                <Link href="/about" className="hover:text-emerald-300 transition-colors text-left block">About Our Mission</Link>
               </li>
               <li>
-                <button
-                  onClick={() => alert("Veterinary Advisory Board coming soon.")}
-                  className="hover:text-emerald-300 transition-colors text-left"
-                >
-                  Veterinary Advisory Board
-                </button>
+                <Link href="/advisory-board" className="hover:text-emerald-300 transition-colors text-left block">Veterinary Advisory Board</Link>
               </li>
               <li>
-                <button
-                  onClick={() => alert("Contact Quiet Pup Care editorial team: editorial@quietpupcare.com")}
-                  className="hover:text-emerald-300 transition-colors text-left"
-                >
-                  Contact & Submissions
-                </button>
+                <Link href="/contact" className="hover:text-emerald-300 transition-colors text-left block">Contact & Submissions</Link>
               </li>
             </ul>
           </div>
@@ -224,7 +210,7 @@ export const Footer: React.FC<FooterProps> = ({
         {/* Bottom Bar & Disclaimers */}
         <div className="pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-stone-500">
           <div className="text-center md:text-left space-y-1.5 max-w-4xl">
-            <p>© {new Date().getFullYear()} Quiet Pup Care (quietpupcare.com). All rights reserved.</p>
+            <p>© {new Date().getFullYear()} Quiet Pup Care (quietpupcare.com). All rights reserved. | <Link href="/privacy-policy" className="hover:text-emerald-400 underline">Privacy Policy</Link> | <Link href="/terms-of-service" className="hover:text-emerald-400 underline">Terms of Service</Link></p>
             <p className="text-[11px] text-stone-400">
               Medical Disclaimer: Educational content only. Consult your licensed veterinarian for individual diagnoses and medical prescriptions.
             </p>
