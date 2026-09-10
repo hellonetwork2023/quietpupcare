@@ -150,3 +150,27 @@ export async function getCustomScripts() {
   const data = await fetchGraphQL(query);
   return data?.customScripts;
 }
+
+export async function getPageBySlug(slug: string) {
+  const query = `
+    query GetPageBySlug($id: ID!, $idType: PageIdType!) {
+      page(id: $id, idType: $idType) {
+        id
+        slug
+        title
+        content
+        rankMathSEO {
+          title
+          description
+          robots
+        }
+      }
+    }
+  `;
+  const variables = {
+    id: slug,
+    idType: 'URI'
+  };
+  const data = await fetchGraphQL(query, variables);
+  return data?.page;
+}
