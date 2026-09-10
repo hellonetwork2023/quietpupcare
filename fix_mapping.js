@@ -1,9 +1,20 @@
-import { getAllPosts } from '@/lib/wp';
-import HomeClient from './HomeClient';
-import { Article } from '@/types';
+const fs = require('fs');
 
-// Map WordPress Post data to the Article interface expected by the UI
-function mapWpPostToArticle(wpPost: any): Article {
+const files = [
+  'src/app/page.tsx',
+  'src/app/article/[slug]/page.tsx'
+];
+
+files.forEach(file => {
+  let content = fs.readFileSync(file, 'utf8');
+  
+  const functionMatch = content.match(/function mapWpPostToArticle\(wpPost: any\): Article \{[\s\S]*?fullBodyHtml: \[wpPost\.content\],\n  \};?\n\}/);
+  if (!functionMatch) {
+    console.error("Could not find function in", file);
+    return;
+  }
+  
+  const newFunction = `function mapWpPostToArticle(wpPost: any): Article {
   const categoryNames = wpPost.categories?.nodes?.map((cat: any) => cat.slug.toLowerCase()) || [];
   let mappedCategory = 'separation-anxiety';
   
@@ -40,22 +51,9 @@ function mapWpPostToArticle(wpPost: any): Article {
     ],
     fullBodyHtml: [wpPost.content],
   };
-}
-
-export default async function Page() {
-  const wpPosts = await getAllPosts();
+}`;
   
-  // Transform WordPress posts to match the Article type
-  const mappedArticles = wpPosts.map(mapWpPostToArticle);
-  
-  // Make the first post featured for UI purposes
-  if (mappedArticles.length > 0) {
-    mappedArticles[0].featured = true;
-  }
-
-  return (
-    <main>
-      <HomeClient articles={mappedArticles} />
-    </main>
-  );
-}
+  content = content.replace(functionMatch[0], newFunction);
+  fs.writeFileSync(file, content);
+  console.log('Fixed', file);
+});

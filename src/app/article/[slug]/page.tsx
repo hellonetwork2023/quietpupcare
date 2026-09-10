@@ -21,11 +21,14 @@ import { Footer } from '@/components/Footer';
 function mapWpPostToArticle(wpPost: any): Article {
   const categoryNames = wpPost.categories?.nodes?.map((cat: any) => cat.slug.toLowerCase()) || [];
   let mappedCategory = 'separation-anxiety';
-  if (categoryNames.includes('noise-phobias')) mappedCategory = 'noise-phobias';
-  else if (categoryNames.includes('crate-training')) mappedCategory = 'crate-training';
-  else if (categoryNames.includes('calming-gear')) mappedCategory = 'calming-gear';
-  else if (categoryNames.includes('supplements')) mappedCategory = 'supplements';
-  else if (categoryNames.includes('behavioral-modification')) mappedCategory = 'behavioral-modification';
+  
+  if (categoryNames.includes('noise-phobias') || categoryNames.includes('fears-phobias')) mappedCategory = 'noise-phobias';
+  else if (categoryNames.includes('crate-training') || categoryNames.includes('training-solutions')) mappedCategory = 'crate-training';
+  else if (categoryNames.includes('calming-gear') || categoryNames.includes('gear-reviews') || categoryNames.includes('supplements')) mappedCategory = 'calming-gear';
+  else if (categoryNames.includes('behavioral-modification') || categoryNames.includes('barking-issues')) mappedCategory = 'behavioral-modification';
+  else if (categoryNames.includes('separation-anxiety')) mappedCategory = 'separation-anxiety';
+
+  const tags = wpPost.tags?.nodes?.map((tag: any) => tag.name) || [];
 
   return {
     id: wpPost.slug,
@@ -38,7 +41,7 @@ function mapWpPostToArticle(wpPost: any): Article {
     publishDate: new Date(wpPost.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }),
     coverImage: wpPost.featuredImage?.node?.sourceUrl || 'https://images.unsplash.com/photo-1541599540903-216a46ca1dc0?auto=format&fit=crop&q=80',
     imageAlt: wpPost.featuredImage?.node?.altText || wpPost.title,
-    tags: wpPost.tags?.nodes?.map((tag: any) => tag.name) || [],
+    tags: tags,
     author: {
       name: wpPost.author?.node?.name || 'Dr. Sarah Jenkins, DVM',
       role: 'Veterinary Behaviorist',
