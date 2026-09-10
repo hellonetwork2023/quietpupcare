@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useEffect, useMemo } from 'react';
-import { ARTICLES, CATEGORIES } from '@/data/articles';
+import { ARTICLES } from '@/data/articles';
 import { Article, CategoryId } from '@/types';
 import { Navbar } from '@/components/Navbar';
 import { HeroFeatured } from '@/components/HeroFeatured';
@@ -26,6 +26,17 @@ const Footer = dynamic(() => import('@/components/Footer').then(mod => mod.Foote
 
 export default function HomeClient({ articles = ARTICLES }: { articles?: Article[] }) {
   const router = useRouter();
+
+  // Compute category counts dynamically from actual articles
+  const dynamicCategories = useMemo(() => [
+    { id: 'all', label: 'All Guides', count: articles.length },
+    { id: 'separation-anxiety', label: 'Separation Anxiety', count: articles.filter(a => a.category === 'separation-anxiety').length },
+    { id: 'noise-phobias', label: 'Noise & Storms', count: articles.filter(a => a.category === 'noise-phobias').length },
+    { id: 'crate-training', label: 'Crate Sanctuaries', count: articles.filter(a => a.category === 'crate-training').length },
+    { id: 'calming-gear', label: 'Tested Calming Gear', count: articles.filter(a => a.category === 'calming-gear').length },
+    { id: 'supplements', label: 'Supplements & Diet', count: articles.filter(a => a.category === 'supplements').length },
+    { id: 'behavioral-modification', label: 'Body Language & Science', count: articles.filter(a => a.category === 'behavioral-modification').length },
+  ], [articles]);
   
   const handleSelectArticle = (article: Article) => {
     router.push('/article/' + article.slug);
@@ -264,7 +275,7 @@ export default function HomeClient({ articles = ARTICLES }: { articles?: Article
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-stone-200">
                 <div className="flex items-center gap-2 overflow-x-auto min-w-0 pb-2 sm:pb-0 scrollbar-none">
                   <SlidersHorizontal className="w-4 h-4 text-stone-400 shrink-0 mr-1" />
-                  {CATEGORIES.map((cat) => (
+                  {dynamicCategories.map((cat) => (
                     <button
                       key={cat.id}
                       onClick={() => {
