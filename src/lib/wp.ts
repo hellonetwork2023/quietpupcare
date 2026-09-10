@@ -3,6 +3,8 @@ const WP_GRAPHQL_URL = 'https://amaz.quietpupcare.com/graphql';
 export async function fetchGraphQL(query: string, variables = {}) {
   const headers: Record<string, string> = {
     'Content-Type': 'application/json',
+    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+    'Accept': 'application/json'
   };
 
   try {
@@ -17,7 +19,14 @@ export async function fetchGraphQL(query: string, variables = {}) {
       next: { revalidate: 60 }, // ISR: Revalidate every 60 seconds
     });
 
-    const json = await res.json();
+    const text = await res.text();
+    let json;
+    try {
+      json = JSON.parse(text);
+    } catch (e) {
+      console.error('Failed to parse JSON. Status:', res.status, 'Response preview:', text.substring(0, 200));
+      throw new Error('Invalid JSON response from WP GraphQL');
+    }
     if (json.errors) {
       console.error('GraphQL Errors:', json.errors);
       throw new Error('Failed to fetch API');
