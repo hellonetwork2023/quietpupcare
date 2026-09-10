@@ -39,56 +39,76 @@ export async function fetchGraphQL(query: string, variables = {}) {
 }
 
 export async function getAllPosts() {
-  const query = `
-    query GetAllPosts {
-      posts(first: 50) {
-        nodes {
-          id
-          databaseId
-          slug
-          title
-          excerpt
-          content
-          date
-          categories {
-            nodes {
-              slug
-              name
-            }
+  const allNodes: any[] = [];
+  let hasNextPage = true;
+  let afterCursor: string | null = null;
+
+  while (hasNextPage) {
+    const query = `
+      query GetAllPosts($first: Int!, $after: String) {
+        posts(first: $first, after: $after) {
+          pageInfo {
+            hasNextPage
+            endCursor
           }
-          tags {
-            nodes {
-              name
-            }
-          }
-          featuredImage {
-            node {
-              sourceUrl
-              altText
-            }
-          }
-          author {
-            node {
-              name
-              avatar {
-                url
+          nodes {
+            id
+            databaseId
+            slug
+            title
+            excerpt
+            content
+            date
+            categories {
+              nodes {
+                slug
+                name
               }
             }
-          }
-          rankMathSEO {
-            title
-            description
-            canonicalUrl
-            focusKeyword
-            robots
-            schema
+            tags {
+              nodes {
+                name
+              }
+            }
+            featuredImage {
+              node {
+                sourceUrl
+                altText
+              }
+            }
+            author {
+              node {
+                name
+                avatar {
+                  url
+                }
+              }
+            }
+            rankMathSEO {
+              title
+              description
+              canonicalUrl
+              focusKeyword
+              robots
+              schema
+            }
           }
         }
       }
-    }
-  `;
-  const data = await fetchGraphQL(query);
-  return data?.posts?.nodes || [];
+    `;
+    const variables: Record<string, any> = { first: 100 };
+    if (afterCursor) variables.after = afterCursor;
+
+    const data = await fetchGraphQL(query, variables);
+    const posts = data?.posts;
+    if (!posts) break;
+
+    allNodes.push(...(posts.nodes || []));
+    hasNextPage = posts.pageInfo?.hasNextPage || false;
+    afterCursor = posts.pageInfo?.endCursor || null;
+  }
+
+  return allNodes;
 }
 
 export async function getPostBySlug(slug: string) {
