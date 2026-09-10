@@ -205,6 +205,11 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
           </ul>
         </div>
 
+        {/* Amazon Affiliate Disclosure */}
+        <div className="mb-8 p-4 bg-stone-100 rounded-xl border border-stone-200 text-xs text-stone-500 italic">
+          As an Amazon Associate, Quiet Pup Care earns from qualifying purchases. We may earn a commission if you buy through links in this article.
+        </div>
+        
         {/* Main Article Content (Rendered HTML from WP) */}
         <div 
           className="space-y-6 text-stone-800 font-normal text-lg leading-loose mb-12 prose prose-stone max-w-none prose-headings:font-serif-heading prose-a:text-emerald-700 hover:prose-a:text-emerald-900 prose-table:border-collapse prose-table:w-full prose-table:text-sm prose-table:border prose-table:border-stone-200 prose-th:bg-stone-100 prose-th:p-4 prose-th:text-left prose-th:border-b prose-th:border-stone-200 prose-th:font-bold prose-td:p-4 prose-td:border-b prose-td:border-stone-200 prose-tr:bg-white"
