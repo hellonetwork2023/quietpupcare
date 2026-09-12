@@ -24,8 +24,8 @@ export async function fetchGraphQL(query: string, variables = {}) {
     try {
       json = JSON.parse(text);
     } catch (e) {
-      console.error('Failed to parse JSON. Status:', res.status, 'Response preview:', text.substring(0, 200));
-      throw new Error('Invalid JSON response from WP GraphQL');
+      console.error('Failed to parse JSON. Status:', res.status, 'Response preview:', text.substring(0, 500));
+      throw new Error(`Invalid JSON response from WP GraphQL (Status: ${res.status})`);
     }
     if (json.errors) {
       console.error('GraphQL Errors:', json.errors);

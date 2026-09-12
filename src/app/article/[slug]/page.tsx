@@ -109,10 +109,8 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 export const revalidate = 60;
 
 export async function generateStaticParams() {
-  const posts = await getAllPosts();
-  return posts.map((post: any) => ({
-    slug: post.slug,
-  }));
+  // Generate pages on-demand (ISR) to avoid crashing the WP server during build
+  return [];
 }
 
 export default async function ArticlePage({ params }: { params: Promise<{ slug: string }> }) {
