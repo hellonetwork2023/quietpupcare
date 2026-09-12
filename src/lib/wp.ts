@@ -57,7 +57,6 @@ export async function getAllPosts() {
             slug
             title
             excerpt
-            content
             date
             categories {
               nodes {
