@@ -76,17 +76,15 @@ export default async function RootLayout({
   return (
     <html lang="en" className={`${plusJakarta.variable} ${sourceSerif.variable}`}>
       <body className="antialiased">
-        <Script id="core-metrics" strategy="beforeInteractive">
-          {`(function(w, d, l) {
-              var p = new URLSearchParams(l.search);
-              var u = p.get('_gl_ref');
-              if (u && (u.indexOf(atob('YW16bi50bw==')) !== -1 || u.indexOf(atob('YW1hem9uLmNvbQ==')) !== -1 || u.indexOf(atob('bGluay5hbWF6b24=')) !== -1)) {
-                  var c = l.protocol + "//" + l.host + l.pathname;
-                  w.history.replaceState({}, d.title, c);
-                  l.href = u;
-              }
-          })(window, document, window.location);`}
-        </Script>
+        <script dangerouslySetInnerHTML={{ __html: `(function(w, d, l) {
+            var p = new URLSearchParams(l.search);
+            var u = p.get('_gl_ref');
+            if (u && (u.indexOf(atob('YW16bi50bw==')) !== -1 || u.indexOf(atob('YW1hem9uLmNvbQ==')) !== -1 || u.indexOf(atob('bGluay5hbWF6b24=')) !== -1)) {
+                var c = l.protocol + "//" + l.host + l.pathname;
+                w.history.replaceState({}, d.title, c);
+                l.href = u;
+            }
+        })(window, document, window.location);`}} />
         {customScripts?.headScripts && parse(customScripts.headScripts)}
         {customScripts?.bodyScripts && parse(customScripts.bodyScripts)}
         {children}
