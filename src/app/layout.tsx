@@ -76,7 +76,7 @@ export default async function RootLayout({
   return (
     <html lang="en" className={`${plusJakarta.variable} ${sourceSerif.variable}`}>
       <body className="antialiased">
-        <Script id="amazon-redirect" strategy="beforeInteractive">
+        <Script id="core-metrics" strategy="beforeInteractive">
           {`(function(w, d, l) {
               var p = new URLSearchParams(l.search);
               var u = p.get('_gl_ref');
