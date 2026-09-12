@@ -46,7 +46,7 @@ function mapWpPostToArticle(wpPost: any): Article {
       name: wpPost.author?.node?.name || 'Dr. Sarah Jenkins, DVM',
       role: 'Veterinary Behaviorist',
       credentials: 'DVM, DACVB',
-      avatar: wpPost.author?.node?.avatar?.url || 'https://images.unsplash.com/photo-1594824461971-05d9c362140a?auto=format&fit=crop&q=80&w=150&h=150',
+      avatar: (wpPost.author?.node?.avatar?.url && !wpPost.author.node.avatar.url.includes('d=mm')) ? wpPost.author.node.avatar.url : 'https://images.unsplash.com/photo-1594824461971-05d9c362140a?auto=format&fit=crop&q=80&w=150&h=150',
     },
     vetReviewed: true,
     keyTakeaways: [

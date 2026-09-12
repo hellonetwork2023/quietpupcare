@@ -5,8 +5,13 @@ async function test() {
     query GetAllPosts {
       posts(first: 1) {
         nodes {
-          title
-          content
+          author {
+            node {
+              avatar {
+                url
+              }
+            }
+          }
         }
       }
     }
@@ -18,15 +23,6 @@ async function test() {
   });
   
   const json = await res.json();
-  const content = json.data.posts.nodes[0].content;
-  console.log("Title:", json.data.posts.nodes[0].title);
-  
-  // Extract all img tags
-  const imgMatches = content.match(/<img[^>]+>/g);
-  if (imgMatches) {
-    imgMatches.forEach(img => console.log(img));
-  } else {
-    console.log("No images found in content.");
-  }
+  console.log(json.data.posts.nodes[0].author.node.avatar.url);
 }
 test();
